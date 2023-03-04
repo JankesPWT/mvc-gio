@@ -9,22 +9,20 @@ class Home
     public function index(): string
     {
         return <<<FORM
-        <form action="/klasa/create" method="post">
-            <input type="text" name="amount">
-            <input type="submit">
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="receipt" />
+            <button type="submit">Upload</button>
         </form>
         FORM;
     }
 
-    public function create(): string
+    public function upload()
     {
-        return 'a';
-    }
-
-    public function store()
-    {
-        $amount = $_POST['amount'];
-
-        //var_dump($amount);
+        var_dump($_FILES);
+        
+        $filePath = STORAGE_PATH . '/' . $_FILES['receipt']['name'];
+        move_uploaded_file($_FILES['receipt']['tmp_name'], $filePath);
+        
+        var_dump(pathinfo($filePath));
     }
 }
