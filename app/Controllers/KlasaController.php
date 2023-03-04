@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-class Klasa
+class KlasaController
 {
     public function index(): string
     {
@@ -20,6 +20,6 @@ class Klasa
     {
         $amount = $_POST['amount'];
 
-        //var_dump($amount);
+        var_dump($amount);
     }
 }
