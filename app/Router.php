@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Exceptions\RouteNotFoundException;
+
 class Router
 {
     private array $routes;
@@ -37,7 +39,7 @@ class Router
         $action = $this->routes[$requestMethod][$route] ?? null;
 
         if (!$action) {
-            echo 'błąd';
+            throw new RouteNotFoundException();
         }
 
         //bez tego metody w kontrolerach muszą być statyczne
@@ -56,6 +58,6 @@ class Router
                 }
             }
         }
-        //throw new JakisException();
+        throw new RouteNotFoundException();
     }
 }
