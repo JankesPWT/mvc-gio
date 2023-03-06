@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\View;
+
 class AboutController
 {
-    public function index(): string
+    public function index(): View
     {
-        return '';
+        return View::make('about/index');
     }
 
-    public function create(): string
+    public function create(): View
     {
-        return '';
+        return View::make('about/create');
     }
 
     public function store()
