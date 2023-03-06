@@ -5,8 +5,9 @@ define('STORAGE_PATH', __DIR__ . '/../storage');
 define('VIEW_PATH', __DIR__ . '/../views');
 
 use App\View;
-use App\Controllers\HomeController;
 use App\Controllers\AboutController;
+use App\Controllers\HomeController;
+use App\Controllers\FileController;
 use App\Exceptions\RouteNotFoundException;
 
 try {
@@ -14,9 +15,11 @@ try {
     $router = new App\Router();
 
     $router->get('/', [HomeController::class, 'index']);
-    $router->post('/upload', [HomeController::class, 'upload']);
+
+    $router->get('/upload', [FileController::class, 'index']);
+    $router->post('/upload', [FileController::class, 'upload']);
     
-    $router->get('/download', [HomeController::class, 'download']);
+    $router->get('/download', [FileController::class, 'download']);
 
     $router->get('/about', [AboutController::class, 'index']);
     $router->get('/about/create', [AboutController::class, 'create']);
