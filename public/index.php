@@ -7,36 +7,31 @@ $dotenv->load();
 define('STORAGE_PATH', __DIR__ . '/../storage');
 define('VIEW_PATH', __DIR__ . '/../views');
 
-use App\View;
+use App\App;
+use App\Config;
+use App\Router;
 use App\Controllers\AboutController;
 use App\Controllers\HomeController;
 use App\Controllers\FileController;
-use App\Exceptions\RouteNotFoundException;
 
-try {
-    //włącz serwer 'php -S localhost' 
-    $router = new App\Router();
 
-    $router->get('/', [HomeController::class, 'index']);
+$router = new Router();
 
-    $router->get('/upload', [FileController::class, 'index']);
-    $router->post('/upload', [FileController::class, 'upload']);
-    
-    $router->get('/download', [FileController::class, 'download']);
+$router->get('/', [HomeController::class, 'index']);
 
-    $router->get('/about', [AboutController::class, 'index']);
-    $router->get('/about/create', [AboutController::class, 'create']);
-    $router->post('/about/create', [AboutController::class, 'store']);
+$router->get('/upload', [FileController::class, 'index']);
+$router->post('/upload', [FileController::class, 'upload']);
+$router->get('/download', [FileController::class, 'download']);
 
-    $router->get(route: '/contact', action: function () { echo 'Contact'; });
+$router->get('/about', [AboutController::class, 'index']);
+$router->get('/about/create', [AboutController::class, 'create']);
+$router->post('/about/create', [AboutController::class, 'store']);
 
-    echo $router->resolve(
-        $_SERVER['REQUEST_URI'], 
-        strtolower($_SERVER['REQUEST_METHOD'])
-    );
-} catch (RouteNotFoundException $e) {
-    //header('HTTP/1.1 404 Not Found');
-    http_response_code(404);
+$router->get(route: '/contact', action: function () { echo 'Contact'; });
 
-    echo View::make('error/404');
-}
+
+(new App(
+        router: $router,
+        request: ['uri' => $_SERVER['REQUEST_URI'], 'method' => $_SERVER['REQUEST_METHOD']],
+        config: new Config($_ENV)
+))->run();
