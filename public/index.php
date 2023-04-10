@@ -6,9 +6,10 @@ use App\App;
 use App\Config;
 use App\Container;
 use App\Router;
-use App\Controllers\AboutController;
 use App\Controllers\HomeController;
+use App\Controllers\AboutController;
 use App\Controllers\FileController;
+use App\Controllers\GeneratorExampleController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -33,6 +34,7 @@ $router->post('/about/create', [AboutController::class, 'store']);
 
 $router->get(route: '/contact', action: function () { echo 'Contact'; });
 
+$router->get('/examples/generator', [GeneratorExampleController::class, 'index']);
 
 (new App(
         $container,
