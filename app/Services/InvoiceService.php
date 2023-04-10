@@ -8,7 +8,7 @@ class InvoiceService
 {
     public function __construct(
         protected SalesTaxService $salesTaxService,
-        protected PaymentGatewayService $gatewayService,
+        protected PaymentGatewayServiceInterface $gatewayService,
         protected EmailService $emailService
     ) {
     }
@@ -25,6 +25,8 @@ class InvoiceService
 
         // 3. send receipt
         $this->emailService->send($customer, 'receipt');
+
+        echo 'Invoice has been processed<br />';
 
         return true;
     }
