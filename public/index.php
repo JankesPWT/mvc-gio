@@ -22,19 +22,26 @@ define('VIEW_PATH', __DIR__ . '/../views');
 $container = new Container();
 $router    = new Router($container);
 
-$router->get('/', [HomeController::class, 'index']);
+$router->registerRoutesFromControllerAttributes(
+    [
+        HomeController::class,
+        GeneratorExampleController::class
+    ]
+);
 
-$router->get('/upload', [FileController::class, 'index']);
-$router->post('/upload', [FileController::class, 'upload']);
-$router->get('/download', [FileController::class, 'download']);
+// $router->get('/', [HomeController::class, 'index']);
 
-$router->get('/about', [AboutController::class, 'index']);
-$router->get('/about/create', [AboutController::class, 'create']);
-$router->post('/about/create', [AboutController::class, 'store']);
+// $router->get('/upload', [FileController::class, 'index']);
+// $router->post('/upload', [FileController::class, 'upload']);
+// $router->get('/download', [FileController::class, 'download']);
 
-$router->get(route: '/contact', action: function () { echo 'Contact'; });
+// $router->get('/about', [AboutController::class, 'index']);
+// $router->get('/about/create', [AboutController::class, 'create']);
+// $router->post('/about/create', [AboutController::class, 'store']);
 
-$router->get('/examples/generator', [GeneratorExampleController::class, 'index']);
+// $router->get(route: '/contact', action: function () { echo 'Contact'; });
+
+// $router->get('/examples/generator', [GeneratorExampleController::class, 'index']);
 
 (new App(
         $container,
