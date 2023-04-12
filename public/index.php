@@ -9,6 +9,7 @@ use App\Router;
 use App\Controllers\HomeController;
 use App\Controllers\AboutController;
 use App\Controllers\FileController;
+use App\Controllers\InvoiceController;
 use App\Controllers\GeneratorExampleController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -25,7 +26,8 @@ $router    = new Router($container);
 $router->registerRoutesFromControllerAttributes(
     [
         HomeController::class,
-        GeneratorExampleController::class
+        GeneratorExampleController::class,
+        InvoiceController::class,
     ]
 );
 
