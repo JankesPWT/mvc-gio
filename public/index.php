@@ -13,6 +13,7 @@ use App\Controllers\FileController;
 use App\Controllers\InvoiceController;
 use App\Controllers\GeneratorExampleController;
 use App\Controllers\UserController;
+use App\Controllers\CurlController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
