@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App;
 
 use App\Exceptions\RouteNotFoundException;
+use App\Services\AbstractApi\EmailValidationService;
 use App\Services\PaymentGatewayService;
 use App\Services\PaymentGatewayServiceInterface;
 use Dotenv\Dotenv;
@@ -44,6 +45,10 @@ class App
         $this->initDb($this->config->db);
 
         $this->container->bind(MailerInterface::class, fn() => new CustomMailer($this->config->mailer['dsn']));
+        $this->container->bind(
+            EmailValidationInterface::class,
+            fn() => new EmailValidationService($this->config->apiKeys['abstract_api_email_validation'])
+        );
 
         return $this;
     }
