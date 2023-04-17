@@ -29,6 +29,7 @@ $router->registerRoutesFromControllerAttributes(
         GeneratorExampleController::class,
         InvoiceController::class,
         UserController::class,
+        CurlController::class,
     ]
 );
 
