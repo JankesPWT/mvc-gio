@@ -4,7 +4,8 @@ declare(strict_types = 1);
 
 use App\App;
 use App\Config;
-use App\Container;
+//use App\Container;
+use Illuminate\Container\Container;
 use App\Router;
 use App\Controllers\HomeController;
 use App\Controllers\AboutController;
