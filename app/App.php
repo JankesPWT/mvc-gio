@@ -4,15 +4,15 @@ declare(strict_types = 1);
 
 namespace App;
 
+use App\Contracts\EmailValidationInterface;
 use App\Exceptions\RouteNotFoundException;
-use App\Services\AbstractApi\EmailValidationService;
-use App\Services\PaymentGatewayService;
-use App\Services\PaymentGatewayServiceInterface;
+use App\Services\Emailable;
+use App\Services\AbstractApi;
 use Dotenv\Dotenv;
-use Symfony\Component\Mailer\MailerInterface;
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Events\Dispatcher;
+use Symfony\Component\Mailer\MailerInterface;
 
 class App
 {
@@ -45,10 +45,15 @@ class App
         $this->initDb($this->config->db);
 
         $this->container->bind(MailerInterface::class, fn() => new CustomMailer($this->config->mailer['dsn']));
+
         $this->container->bind(
             EmailValidationInterface::class,
-            fn() => new EmailValidationService($this->config->apiKeys['abstract_api_email_validation'])
+            fn() => new Emailable\EmailValidationService($this->config->apiKeys['emailable'])
         );
+        //$this->container->bind(
+        //    EmailValidationInterface::class,
+        //    fn() => new AbstractApi\EmailValidationService($this->config->apiKeys['abstract_api_email_validation'])
+        //);
 
         return $this;
     }
